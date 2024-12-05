@@ -3,7 +3,8 @@
 name: Main Branch - Serverless Service CI/CD
 
 permissions:
-  contents: read
+  contents: read    
+  id-token: write
 
 env:
   NODE_VERSION: "20"
@@ -23,6 +24,12 @@ jobs:
     permissions:
       id-token: write # required for requesting the JWT (GitHub OIDC)
     steps:
+      - name: Configure AWS Credentials for China region audience
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience: sts.amazonaws.com.cn
+          aws-region: us-east-1
+          role-to-assume: arn:aws-cn:iam::123456789100:role/my-github-actions-role
       - run: |
           echo "🎉 The job was automatically triggered by a ${{ env.EVENT_NAME }} event." >> $GITHUB_STEP_SUMMARY
           echo "🐧 This job is now running on a ${{ env.OS_NAME }} ${{env.OS_ARCH}} server hosted by GitHub!" >> $GITHUB_STEP_SUMMARY
