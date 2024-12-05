@@ -80,7 +80,8 @@ class CreateAgentApiStack(Stack):
             self,
             'swarmsAgent',
             code=_lambda.DockerImageCode.from_image_asset('./lambdas/swarms'),
-            memory_size=1024 * 8,
+            memory_size=3008,
+            # MemorySize' value failed to satisfy constraint: Member must have value less than or equal to 3008
             timeout=Duration.seconds(90),
             architecture=_lambda.Architecture.X86_64,
             #            environment={'OPENAI_API_KEY': os.environ['OPENAI_API_KEY']},
