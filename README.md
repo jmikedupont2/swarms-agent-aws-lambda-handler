@@ -1,24 +1,52 @@
-# 
+#
 
+*** Personal Install Notes
 
-My personal install notes, please rewrite them to fit in the  form following
-```
-~/.pyenv/bin/pyenv	init
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-aws sts get-caller-identity
-pip install aws-cdk-lib
-poetry config keyring.enabled false
-#  rm ~/.config/pypoetry/poetry.lock 
- poetry install
-~/.config/nvm/versions/node/v18.17.0/bin/cdk bootstrap aws://767503528736/us-east-1
-```
+1. *Initialize pyenv*:
+#+BEGIN_SRC bash
+   ~/.pyenv/bin/pyenv init
+#+END_SRC
 
-✅  Environment aws://767503528736/us-east-1 bootstrapped.
+2. *Set Environment Variables*:
+#+BEGIN_SRC bash
+   export PYENV_ROOT="$HOME/.pyenv"
+   if [[ -d $PYENV_ROOT/bin ]]; then
+       export PATH="$PYENV_ROOT/bin:$PATH"
+   fi
+#+END_SRC
 
+3. *Get AWS Caller Identity*:
+#+BEGIN_SRC bash
+   aws sts get-caller-identity
+#+END_SRC
+
+4. *Install AWS CDK Library*:
+#+BEGIN_SRC bash
+   pip install aws-cdk-lib
+#+END_SRC
+
+5. *Disable Keyring for Poetry*:
+#+BEGIN_SRC bash
+   poetry config keyring.enabled false
+#+END_SRC
+
+6. *Install Dependencies using Poetry*:
+#+BEGIN_SRC bash
+   poetry install
+#+END_SRC
+
+7. *Bootstrap AWS CDK Environment*:
+#+BEGIN_SRC bash
+   ~/.config/nvm/versions/node/v18.17.0/bin/cdk bootstrap aws://767503528736/us-east-1
+#+END_SRC
+
+`✅  Environment aws://767503528736/us-east-1 bootstrapped.`
+
+*** Deployment
 `make deploy`
 
 
+Use the following form:
 
 # AWS Lambda Handler Cookbook (Python)
 
@@ -185,4 +213,3 @@ Read our code of conduct [here.](https://github.com/ran-isenberg/aws-lambda-hand
 ## License
 
 This library is licensed under the MIT License. See the [LICENSE](https://github.com/ran-isenberg/aws-lambda-handler-cookbook/blob/main/LICENSE) file.
-

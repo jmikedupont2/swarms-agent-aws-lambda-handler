@@ -9,13 +9,7 @@ from uuid import UUID, uuid4
 
 import uvicorn
 from dotenv import load_dotenv
-from fastapi import (
-    BackgroundTasks,
-    FastAPI,
-    HTTPException,
-    Query,
-    status,
-)
+from fastapi import BackgroundTasks, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -193,10 +187,12 @@ class AgentStore:
 
         except Exception as e:
             logger.error(f'Error creating agent: {str(e)}')
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f'Failed to create agent: {str(e)}',
-            )
+            raise e
+
+    #            raise HTTPException(
+    #                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    #                detail=f'Failed to create agent: {str(e)}',
+    #            )
 
     async def get_agent(self, agent_id: UUID) -> Agent:
         """Retrieve an agent by ID."""
@@ -386,10 +382,11 @@ class AgentStore:
             metadata['error_count'] += 1
             metadata['status'] = AgentStatus.ERROR
             logger.error(f'Error in completion processing: {str(e)}\n{traceback.format_exc()}')
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f'Error processing completion: {str(e)}',
-            )
+            raise e
+        #            raise HTTPException(
+        #                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        #                detail=f'Error processing completion: {str(e)}',
+        #            )
         finally:
             metadata['status'] = AgentStatus.IDLE
 
@@ -426,9 +423,10 @@ class SwarmsAPI:
             agent_id = await self.store.create_agent(config)
             return {'agent_id': agent_id}
 
+        # Query(None)
         @self.app.get('/v1/agents', response_model=List[AgentSummary])
         async def list_agents(
-            tags: Optional[List[str]] = Query(None),
+            tags: Optional[List[str]],
             status: Optional[AgentStatus] = None,
         ):
             """List all agents, optionally filtered by tags and status."""
@@ -448,6 +446,9 @@ class SwarmsAPI:
             """Get performance metrics for a specific agent."""
             return await self.store.get_agent_metrics(agent_id)
 
+        self._setup_routes2()
+
+    def _setup_routes2(self):
         @self.app.post(
             '/v1/agent/{agent_id}/clone',
             response_model=Dict[str, UUID],
@@ -488,10 +489,12 @@ class SwarmsAPI:
 
             except Exception as e:
                 logger.error(f'Error processing completion: {str(e)}')
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f'Error processing completion: {str(e)}',
-                )
+                raise e
+
+        #                raise HTTPException(
+        #                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        #                    detail=f'Error processing completion: {str(e)}',
+        #                )
 
         @self.app.get('/v1/agent/{agent_id}/status')
         async def get_agent_status(agent_id: UUID):

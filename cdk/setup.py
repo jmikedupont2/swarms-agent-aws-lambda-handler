@@ -8,7 +8,7 @@ here = path.abspath(path.dirname(__file__))
 setup(
     name='swarms-service-cdk',
     version='0.0.1-3.1',
-    description='Swarms Aagent CDK code for deploying an AWS Lambda handler,
+    description='Swarms Aagent CDK code for deploying an AWS Lambda handler',
     classifiers=[
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',

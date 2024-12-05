@@ -1,19 +1,8 @@
-import os
+# import os
 
-from aws_cdk import (
-    Aspects,
-    CfnOutput,
-    Duration,
-    Stack,
-    Tags,
-)
-from aws_cdk import (
-    aws_apigateway as apigw,
-)
-from aws_cdk import (
-    #    Stack,
-    aws_lambda as _lambda,
-)
+from aws_cdk import Aspects, CfnOutput, Duration, Stack, Tags
+from aws_cdk import aws_apigateway as apigw
+from aws_cdk import aws_lambda as _lambda  # Stack,
 from cdk_nag import AwsSolutionsChecks, NagSuppressions
 from constructs import Construct
 
@@ -76,16 +65,16 @@ class CreateAgentApiStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        agent_lambda = _lambda.DockerImageFunction(
-            self,
-            'aiResearchAgent',
-            code=_lambda.DockerImageCode.from_image_asset('./create_agent_api/lambdas/agent'),
-            memory_size=1024 * 2,
-            timeout=Duration.seconds(90),
-            architecture=_lambda.Architecture.X86_64,
-            #            environment={'OPENAI_API_KEY': os.environ['OPENAI_API_KEY']},
-            description='Generic Agent',
-        )
+        # agent_lambda = _lambda.DockerImageFunction(
+        #     self,
+        #     'aiResearchAgent',
+        #     code=_lambda.DockerImageCode.from_image_asset('./lambdas/swarms'),
+        #     memory_size=1024 * 2,
+        #     timeout=Duration.seconds(90),
+        #     architecture=_lambda.Architecture.X86_64,
+        #     #            environment={'OPENAI_API_KEY': os.environ['OPENAI_API_KEY']},
+        #     description='Generic Agent',
+        # )
 
         swarms_lambda = _lambda.DockerImageFunction(
             self,
@@ -94,7 +83,7 @@ class CreateAgentApiStack(Stack):
             memory_size=1024 * 8,
             timeout=Duration.seconds(90),
             architecture=_lambda.Architecture.X86_64,
-            environment={'OPENAI_API_KEY': os.environ['OPENAI_API_KEY']},
+            #            environment={'OPENAI_API_KEY': os.environ['OPENAI_API_KEY']},
             description='Swarms Agent',
         )
 
@@ -102,12 +91,12 @@ class CreateAgentApiStack(Stack):
         api = apigw.RestApi(self, 'AgentApi', rest_api_name='Agent Service API', description='API for the AI Agent service')
 
         # Create API Gateway integrations
-        agent_integration = apigw.LambdaIntegration(agent_lambda)
+        #        agent_integration = apigw.LambdaIntegration(agent_lambda)
         swarms_integration = apigw.LambdaIntegration(swarms_lambda)
 
         # Add resources and POST methods
-        agent_resource = api.root.add_resource('agent')
-        agent_resource.add_method('POST', agent_integration)
+        #        agent_resource = api.root.add_resource('agent')
+        #        agent_resource.add_method('POST', agent_integration)
 
         swarms_resource = api.root.add_resource('swarms')
         swarms_resource.add_method('POST', swarms_integration)
