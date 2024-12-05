@@ -49,7 +49,7 @@ class AgentConfig(BaseModel):
     )
     description: str = Field(default='', description="Description of the agent's purpose")
     system_prompt: str = Field(..., description='System prompt for the agent')
-    model_name: str = Field(default='gpt-4', description='Model name to use')
+
     temperature: float = Field(
         default=0.1,
         ge=0.0,
