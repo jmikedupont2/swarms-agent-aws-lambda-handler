@@ -14,7 +14,7 @@ app = App()
 swarms_stack = CreateAgentApiStack(
     scope=app,
     #    id=get_stack_name(),
-    construct_id='test',
+    construct_id='swarms',
     env=Environment(account=os.environ.get('AWS_DEFAULT_ACCOUNT', account), region=os.environ.get('AWS_DEFAULT_REGION', region)),
     #   is_production_env=True if environment == 'production' else False,
 )
