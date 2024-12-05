@@ -1,3 +1,25 @@
+# 
+
+
+My personal install notes, please rewrite them to fit in the  form following
+```
+~/.pyenv/bin/pyenv	init
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+aws sts get-caller-identity
+pip install aws-cdk-lib
+poetry config keyring.enabled false
+#  rm ~/.config/pypoetry/poetry.lock 
+ poetry install
+~/.config/nvm/versions/node/v18.17.0/bin/cdk bootstrap aws://767503528736/us-east-1
+```
+
+✅  Environment aws://767503528736/us-east-1 bootstrapped.
+
+`make deploy`
+
+
+
 # AWS Lambda Handler Cookbook (Python)
 
 [![license](https://img.shields.io/github/license/ran-isenberg/aws-lambda-handler-cookbook)](https://github.com/ran-isenberg/aws-lambda-handler-cookbook/blob/master/LICENSE)
@@ -163,3 +185,4 @@ Read our code of conduct [here.](https://github.com/ran-isenberg/aws-lambda-hand
 ## License
 
 This library is licensed under the MIT License. See the [LICENSE](https://github.com/ran-isenberg/aws-lambda-handler-cookbook/blob/main/LICENSE) file.
+
