@@ -4,3 +4,4 @@ loguru
 #swarms
 termcolor
 -e git+https://github.com/meta-introspector/swarms.git@feature/experiment1#egg=swarms
+-e git+https://github.com/jmikedupont2/swarm-models.git@main#egg=swarm-models
