@@ -14,4 +14,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/. .
 
 # Set the CMD to your handler
-CMD [ "main.handler" ]
+#CMD [ python -m "main.handler" ]
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]

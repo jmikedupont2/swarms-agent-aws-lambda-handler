@@ -2,4 +2,5 @@ fastapi
 uvicorn
 loguru
 #swarms
--e git+https://github.com/meta-introspector/swarms.git@feature/cleanup#egg=swarms
+termcolor
+-e git+https://github.com/meta-introspector/swarms.git@feature/experiment1#egg=swarms
